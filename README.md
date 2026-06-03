@@ -2,7 +2,12 @@
 
 VS Code extension for browsing LevelDB databases.
 
-English | [中文](#中文)
+<details>
+<summary>中文说明</summary>
+
+LevelDB Viewer 是一个用于在 VS Code 中浏览 LevelDB 数据库的扩展。
+
+</details>
 
 ## Features
 
@@ -59,11 +64,8 @@ Project-only settings can be stored in:
 - `LevelDB Viewer: Configure Database Path`: select a LevelDB directory and save it to the current workspace settings.
 - `LevelDB Viewer: Open Settings`: open the VS Code Settings UI filtered to this extension.
 
-## 中文
-
-LevelDB Viewer 是一个用于在 VS Code 中浏览 LevelDB 数据库的扩展。
-
-[English](#leveldb-viewer) | 中文
+<details>
+<summary>完整中文说明</summary>
 
 ## 功能
 
@@ -119,3 +121,5 @@ LevelDB Viewer 是一个用于在 VS Code 中浏览 LevelDB 数据库的扩展�
 - `LevelDB Viewer: Open Detected AppData Database`：打开自动检测到或已配置的数据库。
 - `LevelDB Viewer: Configure Database Path`：选择一个 LevelDB 目录，并保存到当前工作区设置。
 - `LevelDB Viewer: Open Settings`：打开 VS Code 设置页面，并定位到本扩展相关设置。
+
+</details>

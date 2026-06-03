@@ -1,0 +1,71 @@
+{
+  "name": "leveldb-viewer",
+  "displayName": "LevelDB Viewer",
+  "description": "Browse LevelDB databases from VS Code.",
+  "version": "0.1.0",
+  "publisher": "local",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:leveldbViewer.openDatabase",
+    "onCommand:leveldbViewer.openDetectedDatabase",
+    "onCommand:leveldbViewer.configureDatabasePath",
+    "onCommand:leveldbViewer.openSettings"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "LevelDB Viewer",
+      "properties": {
+        "leveldbViewer.databasePath": {
+          "type": "string",
+          "default": "",
+          "scope": "resource",
+          "description": "Absolute LevelDB database path for this workspace. When set, it takes priority over Electron AppData detection."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "leveldbViewer.openDatabase",
+        "title": "LevelDB Viewer: Open Database"
+      },
+      {
+        "command": "leveldbViewer.openDetectedDatabase",
+        "title": "LevelDB Viewer: Open Detected AppData Database"
+      },
+      {
+        "command": "leveldbViewer.configureDatabasePath",
+        "title": "LevelDB Viewer: Configure Database Path"
+      },
+      {
+        "command": "leveldbViewer.openSettings",
+        "title": "LevelDB Viewer: Open Settings"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "publish": "vsce publish",
+    "vscode:prepublish": "npm run compile"
+  },
+  "dependencies": {
+    "classic-level": "^3.0.0",
+    "fs-extra": "^11.3.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.19.1",
+    "@types/vscode": "^1.90.0",
+    "@vscode/vsce": "^3.9.1",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,13 @@
+.vscode/**
+.vscode-test/**
+src/**
+**/*.map
+tsconfig.json
+.gitignore
+leveldb-viewer-*.tgz
+node_modules/**/test/**
+node_modules/**/tests/**
+node_modules/**/deps/**
+node_modules/**/*.cc
+node_modules/**/*.h
+node_modules/**/*.gyp

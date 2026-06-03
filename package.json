@@ -4,6 +4,7 @@
   "description": "Browse LevelDB databases from VS Code.",
   "version": "0.1.0",
   "publisher": "local",
+  "icon": "resources/icon.png",
   "license": "MIT",
   "repository": {
     "type": "git",

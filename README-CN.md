@@ -4,6 +4,16 @@ LevelDB Viewer 是一个用于在 VS Code 中浏览 LevelDB 数据库的扩展�
 
 [English](https://github.com/g121370451/leveldb-viewer/blob/master/README.md)
 
+## 演示
+
+### 打开 LevelDB 数据库
+
+![打开 LevelDB 数据库](resources/opendatabase.gif)
+
+### 配置工作区数据库路径
+
+![配置数据库路径](resources/config_path.gif)
+
 ## 功能
 
 - 手动打开 LevelDB 数据库目录。

@@ -4,6 +4,16 @@ VS Code extension for browsing LevelDB databases.
 
 [中文文档](https://github.com/g121370451/leveldb-viewer/blob/master/README-CN.md)
 
+## Demo
+
+### Open a LevelDB database
+
+![Open a LevelDB database](resources/opendatabase.gif)
+
+### Configure a workspace database path
+
+![Configure database path](resources/config_path.gif)
+
 ## Features
 
 - Open a LevelDB database folder manually.

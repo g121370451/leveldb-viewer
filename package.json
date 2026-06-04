@@ -2,8 +2,8 @@
   "name": "leveldb-viewer",
   "displayName": "LevelDB Viewer",
   "description": "Browse LevelDB databases from VS Code.",
-  "version": "0.1.0",
-  "publisher": "local",
+  "version": "1.0.0",
+  "publisher": "g121370451",
   "icon": "resources/icon.png",
   "license": "MIT",
   "repository": {

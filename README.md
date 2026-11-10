@@ -2,7 +2,19 @@
 
 A read-only VS Code viewer for ordinary LevelDB and Chromium / WebView2 IndexedDB directories, including Focus To-Do's `file__0.indexeddb.leveldb`.
 
-## Open a database
+[中文文档](https://github.com/g121370451/leveldb-viewer/blob/master/README-CN.md)
+
+## Demo
+
+### Open a LevelDB database
+
+![Open a LevelDB database](resources/opendatabase.gif)
+
+### Configure a workspace database path
+
+![Configure database path](resources/config_path.gif)
+
+## Features
 
 Run **LevelDB Viewer: Open Database** and select the directory containing `CURRENT` and its referenced `MANIFEST-*`. The source application can remain open. If its files keep changing or it has a pending IndexedDB transaction, close the application and refresh the viewer.
 
@@ -25,7 +37,7 @@ Attachments are read on demand from the source's adjacent blob directory. They c
 
 The viewer keeps one active snapshot/index per panel, plus a candidate during refresh. Closing the panel releases its cache. Abandoned sessions older than 24 hours are reclaimed on a later open only when their owning process is no longer alive. An approximate per-panel disk budget is checked before copying and between index batches; compression, pending native writes, and a single batch can temporarily overshoot it.
 
-## Compatibility
+When a workspace is open, the extension checks whether the workspace is an Electron project. The project is considered Electron-based when its `package.json` has `electron` in `dependencies` or `devDependencies`.
 
 Supported comparator names are `leveldb.BytewiseComparator` and `idb_cmp1`. The reader handles LevelDB manifests, live tables, WAL write batches, sequence numbers, tombstones, fragmented logs, and uncompressed/Snappy table blocks. It does not rewrite comparator names or scan obsolete files as if they were live records.
 
@@ -33,7 +45,7 @@ IndexedDB support includes metadata, primary keys, schema, common Blink envelope
 
 Pending IndexedDB scope records are conservatively rejected rather than exposing partially committed data. This is a viewer, not a recovery tool. Unfinished WAL tail records are ignored, as they do not form complete write batches. Table blocks and individual WAL records are limited to 256 MiB.
 
-Decoded display abbreviates very large/deep collections; raw preview is limited to 64 KiB. Full-selection search uses complete decoded values up to the configured decoding limit, and does not search the contents of attached files automatically.
+## Settings
 
 ## Settings and AppData quick open
 
@@ -46,14 +58,7 @@ Decoded display abbreviates very large/deep collections; raw preview is limited 
 
 When no path is configured, an Electron project's `package.json` name is used to look for `%APPDATA%/<name>/db`. Use manual selection or `databasePath` for WebView2 / Store apps.
 
-Commands:
-
-- **LevelDB Viewer: Open Database**
-- **LevelDB Viewer: Open Detected AppData Database**
-- **LevelDB Viewer: Configure Database Path**
-- **LevelDB Viewer: Open Settings**
-
-## Development
+Project-only settings can be stored in:
 
 ```sh
 npm ci
@@ -62,8 +67,9 @@ npm run test:ui
 npm run package
 ```
 
-The UI smoke test uses an installed Microsoft Edge through Playwright by default. Set `VIEWER_BROWSER=chrome` to use Chrome. It drives the real panel controller and worker with a synthetic IndexedDB fixture, and writes screenshots to the ignored `artifacts/` directory. It does not require or include personal application data.
+## Commands
 
-See [the architecture notes](docs/architecture.md) for module responsibilities and storage format references.
-
-For step-by-step local testing and GitHub Actions setup, see [本地测试与 CI 指南](docs/testing-and-ci.md). The workflow in `.github/workflows/ci.yml` runs Windows tests and builds a downloadable VSIX on pushes and pull requests; it does not publish to the Marketplace.
+- `LevelDB Viewer: Open Database`: manually select and open a LevelDB directory.
+- `LevelDB Viewer: Open Detected AppData Database`: open the detected/configured database from the status bar logic.
+- `LevelDB Viewer: Configure Database Path`: select a LevelDB directory and save it to the current workspace settings.
+- `LevelDB Viewer: Open Settings`: open the VS Code Settings UI filtered to this extension.

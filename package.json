@@ -2,8 +2,8 @@
   "name": "leveldb-viewer",
   "displayName": "LevelDB Viewer",
   "description": "Browse LevelDB databases from VS Code.",
-  "version": "0.1.0",
-  "publisher": "local",
+  "version": "1.1.0",
+  "publisher": "g121370451",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -42,6 +42,27 @@
           "default": "",
           "scope": "resource",
           "description": "Absolute LevelDB database path for this workspace. When set, it takes priority over Electron AppData detection."
+        },
+        "leveldbViewer.maxSnapshotGB": {
+          "type": "number",
+          "default": 10,
+          "minimum": 0.01,
+          "maximum": 1024,
+          "description": "Maximum source database size in GiB. Refresh can temporarily require two query indexes and additional changed files."
+        },
+        "leveldbViewer.maxValueMB": {
+          "type": "number",
+          "default": 32,
+          "minimum": 1,
+          "maximum": 256,
+          "description": "Maximum individual value or attachment size to decode in MiB."
+        },
+        "leveldbViewer.maxCacheGB": {
+          "type": "number",
+          "default": 20,
+          "minimum": 0.01,
+          "maximum": 2048,
+          "description": "Approximate per-viewer disk cache budget in GiB, including snapshots and query indexes. Checked between indexing batches."
         }
       }
     },
@@ -65,21 +86,26 @@
     ]
   },
   "scripts": {
-    "compile": "tsc -p ./",
+    "compile": "node scripts/build.cjs",
     "watch": "tsc -watch -p ./",
     "package": "vsce package",
     "publish": "vsce publish",
-    "vscode:prepublish": "npm run compile"
+    "vscode:prepublish": "npm run compile",
+    "test": "npm run compile && node --test tests/*.test.cjs",
+    "test:ui": "npm run compile && node tests/ui-smoke.cjs",
+    "format": "prettier --write src media tests scripts",
+    "format:check": "prettier --check src media tests scripts"
   },
   "dependencies": {
     "classic-level": "^3.0.0",
-    "fs-extra": "^11.3.0"
+    "snappyjs": "^0.7.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "^11.0.4",
+    "@playwright/test": "^1.65.0",
     "@types/node": "^22.19.1",
     "@types/vscode": "^1.90.0",
     "@vscode/vsce": "^3.9.1",
+    "prettier": "^3.9.10",
     "typescript": "^5.9.3"
   }
 }

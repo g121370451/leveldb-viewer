@@ -1,0 +1,66 @@
+name: Test and package
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  windows:
+    name: Windows tests and VSIX
+    runs-on: windows-latest
+    timeout-minutes: 20
+    env:
+      VIEWER_BROWSER: msedge
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Run storage and decoder tests
+        run: npm test
+
+      - name: Install test browser
+        run: npx playwright install msedge
+
+      - name: Run browser integration tests
+        run: npm run test:ui
+
+      - name: Build extension package
+        run: npm run package
+
+      - name: Upload VSIX
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: leveldb-viewer-vsix
+          path: '*.vsix'
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload UI screenshots
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: viewer-ui-screenshots
+          path: artifacts/*.png
+          if-no-files-found: ignore
+          retention-days: 7

@@ -11,3 +11,9 @@ node_modules/**/deps/**
 node_modules/**/*.cc
 node_modules/**/*.h
 node_modules/**/*.gyp
+tests/**
+artifacts/**
+docs/**
+scripts/**
+.prettierrc.json
+.github/**

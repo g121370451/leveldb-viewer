@@ -5,8 +5,13 @@
       "name": "Run LevelDB Viewer Extension",
       "type": "extensionHost",
       "request": "launch",
-      "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--disable-extension=local.leveldb-viewer"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/out/**/*.js"
+      ],
       "preLaunchTask": "npm: compile"
     }
   ]
